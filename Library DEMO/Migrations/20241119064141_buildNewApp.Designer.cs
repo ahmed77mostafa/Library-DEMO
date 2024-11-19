@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_DEMO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241119035431_BooksGenres")]
-    partial class BooksGenres
+    [Migration("20241119064141_buildNewApp")]
+    partial class buildNewApp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,7 +160,8 @@ namespace Library_DEMO.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId")
+                        .IsUnique();
 
                     b.ToTable("IdentityCards");
                 });
@@ -209,8 +210,8 @@ namespace Library_DEMO.Migrations
             modelBuilder.Entity("Library_DEMO.Models.IdentityCard", b =>
                 {
                     b.HasOne("Library_DEMO.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .WithOne("IdentityCard")
+                        .HasForeignKey("Library_DEMO.Models.IdentityCard", "AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -220,6 +221,9 @@ namespace Library_DEMO.Migrations
             modelBuilder.Entity("Library_DEMO.Models.Author", b =>
                 {
                     b.Navigation("CreditCards");
+
+                    b.Navigation("IdentityCard")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

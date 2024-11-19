@@ -17,7 +17,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context = context;
         }
 
-        public void AddAuthor(AuthorDto authorDto)
+        public void AddAuthor(AuthorBookCreditCardDto authorDto)
         {
             Author author = new Author
             {
@@ -39,7 +39,7 @@ namespace Library_DEMO.Repositories.Implementations
                 Books = authorDto.Books.Select(i => new Book
                 {
                     Title = i.Title,
-                    PublishedDate = i.PublishedDate,
+                    PublishedDate = i.PublishedDate
                 }).ToList()
             };
             _context.Authors.Add(author);
@@ -73,7 +73,7 @@ namespace Library_DEMO.Repositories.Implementations
                     Name = i.Name,
                     Email = i.Email,
                     PhoneNumber = i.PhoneNumber,
-                    Books = i.Books.Select(i => new AuthorBookDto
+                    Books = i.Books.Select(i => new BookAuthorGenreDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,
@@ -95,7 +95,7 @@ namespace Library_DEMO.Repositories.Implementations
                     Name = author.Name,
                     Email = author.Email,
                     PhoneNumber = author.PhoneNumber,
-                    Books = author.Books.Select(i => new AuthorBookDto
+                    Books = author.Books.Select(i => new BookAuthorGenreDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate

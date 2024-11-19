@@ -1,4 +1,5 @@
 ﻿using Library_DEMO.Data;
+using Library_DEMO.DTOs.AuthorFolder;
 using Library_DEMO.DTOs.BookFolder;
 using Library_DEMO.Models;
 using Library_DEMO.Repositories.Interfaces;
@@ -15,7 +16,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context = context;
         }
 
-        public void AddBook(BookDto bookDto)
+        public void AddBook(BookAuthorGenreDto bookDto)
         {
             Book book = new Book
             {
@@ -74,7 +75,7 @@ namespace Library_DEMO.Repositories.Implementations
                 {
                     Title = book.Title,
                     PublishedDate = book.PublishedDate,
-                    Authors = book.Authors.Select(i => new BookAuthorDto
+                    Authors = book.Authors.Select(i => new AuthorBookCreditCardDto
                     {
                         Name = i.Name,
                         Email = i.Email,
@@ -94,7 +95,7 @@ namespace Library_DEMO.Repositories.Implementations
                 {
                     Title = i.Title,
                     PublishedDate = i.PublishedDate,
-                    Authors = i.Authors.Select(i => new BookAuthorDto
+                    Authors = i.Authors.Select(i => new AuthorBookCreditCardDto
                     {
                         Name = i.Name,
                         Email = i.Email,

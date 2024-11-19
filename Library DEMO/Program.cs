@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Conf
 
 builder.Services.AddScoped<IAuthorRepo, AuthorRepo>();
 builder.Services.AddScoped<IBookRepo, BookRepo>();
+builder.Services.AddScoped<IGenreRepo, GenreRepo>();
+builder.Services.AddScoped<ICreditCardRepo, CreditCardRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Library_DEMO.Migrations
 {
     /// <inheritdoc />
-    public partial class buildApp : Migration
+    public partial class buildNewApp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,6 +38,19 @@ namespace Library_DEMO.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,28 +119,27 @@ namespace Library_DEMO.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genres",
+                name: "BookGenre",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: true),
-                    GenreId = table.Column<int>(type: "int", nullable: true)
+                    BooksId = table.Column<int>(type: "int", nullable: false),
+                    GenresId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.Id);
+                    table.PrimaryKey("PK_BookGenre", x => new { x.BooksId, x.GenresId });
                     table.ForeignKey(
-                        name: "FK_Genres_Books_BookId",
-                        column: x => x.BookId,
+                        name: "FK_BookGenre_Books_BooksId",
+                        column: x => x.BooksId,
                         principalTable: "Books",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Genres_Genres_GenreId",
-                        column: x => x.GenreId,
+                        name: "FK_BookGenre_Genres_GenresId",
+                        column: x => x.GenresId,
                         principalTable: "Genres",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -136,24 +148,20 @@ namespace Library_DEMO.Migrations
                 column: "BooksId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BookGenre_GenresId",
+                table: "BookGenre",
+                column: "GenresId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CreditCards_AuthorId",
                 table: "CreditCards",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Genres_BookId",
-                table: "Genres",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Genres_GenreId",
-                table: "Genres",
-                column: "GenreId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_IdentityCards_AuthorId",
                 table: "IdentityCards",
-                column: "AuthorId");
+                column: "AuthorId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -163,16 +171,19 @@ namespace Library_DEMO.Migrations
                 name: "AuthorBook");
 
             migrationBuilder.DropTable(
-                name: "CreditCards");
+                name: "BookGenre");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "CreditCards");
 
             migrationBuilder.DropTable(
                 name: "IdentityCards");
 
             migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "Authors");

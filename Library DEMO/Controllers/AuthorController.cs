@@ -1,4 +1,5 @@
 ﻿using Library_DEMO.DTOs.AuthorFolder;
+using Library_DEMO.DTOs.BookFolder;
 using Library_DEMO.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ namespace Library_DEMO.Controllers
             _authorRepo = authorRepo;
         }
         [HttpPost("Author")]
-        public IActionResult AddAuthor(AuthorDto authorDto)
+        public IActionResult AddAuthor(AuthorBookCreditCardDto authorDto)
         {
             _authorRepo.AddAuthor(authorDto);
             return Ok();
@@ -45,15 +46,15 @@ namespace Library_DEMO.Controllers
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public IActionResult PutAuthorBook(int authorId, [FromBody] AuthorDto authorDto)
+        public IActionResult PutAuthorBook(int id, [FromBody] AuthorDto authorDto)
         {
-            _authorRepo.UpdateAuthorBook(authorId, authorDto);
+            _authorRepo.UpdateAuthorBook(id, authorDto);
             return Ok();
         }
-        [HttpDelete("{authorId}")]
-        public IActionResult DeleteAuthorBook(int authorId)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAuthorBook(int id)
         {
-            _authorRepo.DeleteAuthorBook(authorId);
+            _authorRepo.DeleteAuthorBook(id);
             return Ok();
         }
     }

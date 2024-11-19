@@ -18,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\CreditCardFolder\" />
     <Folder Include="DTOs\IdentityCardFolder\" />
-    <Folder Include="DTOs\GenreFolder\" />
   </ItemGroup>
 
 </Project>

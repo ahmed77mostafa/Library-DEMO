@@ -12,6 +12,6 @@ namespace Library_DEMO.DTOs.AuthorFolder
         public string PhoneNumber { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        public List<AuthorBookDto> Books { get; set; }
+        public List<BookAuthorGenreDto> Books { get; set; }
     }
 }

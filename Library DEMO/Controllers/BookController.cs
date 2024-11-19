@@ -15,7 +15,7 @@ namespace Library_DEMO.Controllers
             _bookRepo = bookRepo;
         }
         [HttpPost("Add-Book")]
-        public IActionResult AddBook(BookDto bookDto)
+        public IActionResult AddBook(BookAuthorGenreDto bookDto)
         {
             _bookRepo.AddBook(bookDto);
             return Ok();

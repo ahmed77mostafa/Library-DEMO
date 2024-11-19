@@ -157,7 +157,8 @@ namespace Library_DEMO.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId")
+                        .IsUnique();
 
                     b.ToTable("IdentityCards");
                 });
@@ -206,8 +207,8 @@ namespace Library_DEMO.Migrations
             modelBuilder.Entity("Library_DEMO.Models.IdentityCard", b =>
                 {
                     b.HasOne("Library_DEMO.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .WithOne("IdentityCard")
+                        .HasForeignKey("Library_DEMO.Models.IdentityCard", "AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -217,6 +218,9 @@ namespace Library_DEMO.Migrations
             modelBuilder.Entity("Library_DEMO.Models.Author", b =>
                 {
                     b.Navigation("CreditCards");
+
+                    b.Navigation("IdentityCard")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

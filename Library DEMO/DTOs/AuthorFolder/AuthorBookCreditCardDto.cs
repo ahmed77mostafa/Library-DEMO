@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Library_DEMO.DTOs.BookFolder
+namespace Library_DEMO.DTOs.AuthorFolder
 {
-    public class BookAuthorDto
+    public class AuthorBookCreditCardDto
     {
         public string Name { get; set; }
         [DataType(DataType.PhoneNumber)]

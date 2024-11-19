@@ -4,7 +4,7 @@ namespace Library_DEMO.Repositories.Interfaces
 {
     public interface IBookRepo
     {
-        public void AddBook(BookDto bookDto);
+        public void AddBook(BookAuthorGenreDto bookDto);
         public void AddBookAuthor(BookDto bookDto);
         public void AddBookAuthorJoining(int bookId, int authorId);
         public List<BookDto> GetBooks();
