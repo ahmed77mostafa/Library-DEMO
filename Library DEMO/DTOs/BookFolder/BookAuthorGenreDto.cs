@@ -10,5 +10,6 @@ namespace Library_DEMO.DTOs.BookFolder
         public string Title { get; set; }
         [DisplayName("Published Date")]
         public DateTime PublishedDate { get; set; }
+        public List<GenreBookDto> Genres { get; set; }
     }
 }

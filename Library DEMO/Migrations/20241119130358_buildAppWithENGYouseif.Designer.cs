@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_DEMO.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241119064141_buildNewApp")]
-    partial class buildNewApp
+    [Migration("20241119130358_buildAppWithENGYouseif")]
+    partial class buildAppWithENGYouseif
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,9 @@ namespace Library_DEMO.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IdentityCardId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -76,6 +79,9 @@ namespace Library_DEMO.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityCardId")
+                        .IsUnique();
 
                     b.ToTable("Authors");
                 });
@@ -151,17 +157,10 @@ namespace Library_DEMO.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExpireDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId")
-                        .IsUnique();
 
                     b.ToTable("IdentityCards");
                 });
@@ -196,6 +195,17 @@ namespace Library_DEMO.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Library_DEMO.Models.Author", b =>
+                {
+                    b.HasOne("Library_DEMO.Models.IdentityCard", "IdentityCard")
+                        .WithOne("Author")
+                        .HasForeignKey("Library_DEMO.Models.Author", "IdentityCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdentityCard");
+                });
+
             modelBuilder.Entity("Library_DEMO.Models.CreditCard", b =>
                 {
                     b.HasOne("Library_DEMO.Models.Author", "Author")
@@ -207,22 +217,14 @@ namespace Library_DEMO.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Library_DEMO.Models.IdentityCard", b =>
-                {
-                    b.HasOne("Library_DEMO.Models.Author", "Author")
-                        .WithOne("IdentityCard")
-                        .HasForeignKey("Library_DEMO.Models.IdentityCard", "AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("Library_DEMO.Models.Author", b =>
                 {
                     b.Navigation("CreditCards");
+                });
 
-                    b.Navigation("IdentityCard")
+            modelBuilder.Entity("Library_DEMO.Models.IdentityCard", b =>
+                {
+                    b.Navigation("Author")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

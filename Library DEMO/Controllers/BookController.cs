@@ -21,9 +21,9 @@ namespace Library_DEMO.Controllers
             return Ok();
         }
         [HttpPost("Add-Book-Author")]
-        public IActionResult AddBookAuthor(BookDto bookDto)
+        public IActionResult AddBookAuthor(BookDto bookDto/*,string name*/)
         {
-            _bookRepo.AddBookAuthor(bookDto);
+            _bookRepo.AddBookAuthor(bookDto/*,name*/);
             return Ok();
         }     
         [HttpPost("Add-Book-Author-Joininig")]
