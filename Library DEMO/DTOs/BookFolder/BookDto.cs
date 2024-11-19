@@ -8,6 +8,6 @@ namespace Library_DEMO.DTOs.BookFolder
         [Required]
         public string Title { get; set; }
         public DateTime PublishedDate { get; set; }
-        public List<Author> Authors { get; set; }
+        public List<BookAuthorDto> Authors { get; set; }
     }
 }

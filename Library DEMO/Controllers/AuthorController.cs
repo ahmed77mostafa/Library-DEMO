@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library_DEMO.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AuthorController : Controller
     {
         private readonly IAuthorRepo _authorRepo;

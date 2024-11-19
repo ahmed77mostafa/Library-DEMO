@@ -16,6 +16,7 @@ var Configuration = builder.Configuration.GetConnectionString("connection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration));
 
 builder.Services.AddScoped<IAuthorRepo, AuthorRepo>();
+builder.Services.AddScoped<IBookRepo, BookRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
