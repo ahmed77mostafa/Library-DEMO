@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Library_DEMO.Models
 {
@@ -13,7 +14,7 @@ namespace Library_DEMO.Models
         public string Email { get; set; }
         public List<Book> Books {  get; set; }
         public List<CreditCard> CreditCards {  get; set; }
-        public int IdentityCardId { get; set; }
+        public int? IdentityCardId { get; set; }
         public IdentityCard IdentityCard {  get; set; }
 
 

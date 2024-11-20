@@ -59,12 +59,12 @@ namespace Library_DEMO.Repositories.Implementations
                 {
                     Name = card.Name,
                     Type = card.Type,
-                    Author = new AuthorDto
+                    Author = new AuthorCreditIdentityDto
                     {
                         Name = card.Author.Name,
                         Email = card.Author.Email,
                         PhoneNumber = card.Author.PhoneNumber,
-                        Books = card.Author.Books.Select(i => new BookAuthorGenreDto
+                        Books = card.Author.Books.Select(i => new BookAuthorDto
                         {
                             Title = i.Title,
                             PublishedDate = i.PublishedDate,
@@ -85,12 +85,12 @@ namespace Library_DEMO.Repositories.Implementations
                 {
                     Name = card.Name,
                     Type = card.Type,
-                    Author = new AuthorDto
+                    Author = new AuthorCreditIdentityDto
                     {
                         Name = card.Author.Name,
                         Email = card.Author.Email,
                         PhoneNumber = card.Author.PhoneNumber,
-                        Books = card.Author.Books.Select(i => new BookAuthorGenreDto
+                        Books = card.Author.Books.Select(i => new BookAuthorDto
                         {
                             Title = i.Title,
                             PublishedDate = i.PublishedDate,

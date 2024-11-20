@@ -7,6 +7,6 @@ namespace Library_DEMO.DTOs.CreditCardFolder
     {
         public string Name { get; set; }
         public string Type { get; set; }
-        public AuthorDto Author { get; set; }
+        public AuthorCreditIdentityDto Author { get; set; }
     }
 }

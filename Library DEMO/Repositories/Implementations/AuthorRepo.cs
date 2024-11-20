@@ -20,7 +20,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context = context;
         }
 
-        public void AddAuthor(AuthorBookCreditCardDto authorDto)
+        public void AddAuthor(AuthorDto authorDto)
         {
             Author author = new Author
             {
@@ -32,7 +32,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public void AddAuthorBook(AuthorDto authorDto)
+        public void AddAuthorBook(AuthorCreditIdentityDto authorDto)
         {
             Author author = new Author
             {
@@ -80,19 +80,19 @@ namespace Library_DEMO.Repositories.Implementations
                 _context.SaveChanges();
             }
         }
-        public List<AuthorDto> GetAllAuthorBooks()
+        public List<AuthorCreditIdentityDto> GetAllAuthorBooks()
         {
             var result = _context.Authors
                 .Include(b => b.Books)
                 .ThenInclude(g => g.Genres)
                 .Include(c => c.CreditCards)
                 .Include(id => id.IdentityCard)
-                .Select(i => new AuthorDto
+                .Select(i => new AuthorCreditIdentityDto
                 {
                     Name = i.Name,
                     Email = i.Email,
                     PhoneNumber = i.PhoneNumber,
-                    Books = i.Books.Select(i => new BookAuthorGenreDto
+                    Books = i.Books.Select(i => new BookAuthorDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,
@@ -116,7 +116,7 @@ namespace Library_DEMO.Repositories.Implementations
             return null;
         }
 
-        public AuthorDto GetAuthorBooksId(int id)
+        public AuthorCreditIdentityDto GetAuthorBooksId(int id)
         {
             var author = _context.Authors
                 .Include(i => i.Books)
@@ -127,12 +127,12 @@ namespace Library_DEMO.Repositories.Implementations
 
             if(author != null)
             {
-                AuthorDto authorDto = new AuthorDto
+                AuthorCreditIdentityDto authorDto = new AuthorCreditIdentityDto
                 {
                     Name = author.Name,
                     Email = author.Email,
                     PhoneNumber = author.PhoneNumber,
-                    Books = author.Books.Select(i => new BookAuthorGenreDto
+                    Books = author.Books.Select(i => new BookAuthorDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,
@@ -156,7 +156,7 @@ namespace Library_DEMO.Repositories.Implementations
             return null;
         }
 
-        public void UpdateAuthorBook([FromBody]int authorId, AuthorDto authorDto)
+        public void UpdateAuthorBook([FromBody]int authorId, AuthorCreditIdentityDto authorDto)
         {
             var author = _context.Authors
                 .Include(b => b.Books)

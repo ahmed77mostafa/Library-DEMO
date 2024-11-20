@@ -15,13 +15,13 @@ namespace Library_DEMO.Controllers
             _bookRepo = bookRepo;
         }
         [HttpPost("Add-Book")]
-        public IActionResult AddBook(BookAuthorGenreDto bookDto)
+        public IActionResult AddBook(BookDto bookDto)
         {
             _bookRepo.AddBook(bookDto);
             return Ok();
         }
         [HttpPost("Add-Book-Author")]
-        public IActionResult AddBookAuthor(BookDto bookDto/*,string name*/)
+        public IActionResult AddBookAuthor(BookAuthorGenreDto bookDto/*,string name*/)
         {
             _bookRepo.AddBookAuthor(bookDto/*,name*/);
             return Ok();
@@ -45,7 +45,7 @@ namespace Library_DEMO.Controllers
             return Ok(book);
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id,BookDto bookDto)
+        public IActionResult UpdateBook(int id,BookAuthorGenreDto bookDto)
         {
             _bookRepo.UpdateBook(id,bookDto);
             return Ok();

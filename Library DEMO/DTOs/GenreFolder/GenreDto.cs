@@ -6,6 +6,6 @@ namespace Library_DEMO.DTOs.GenreFolder
     public class GenreDto
     {
         public string Name { get; set; }
-        public List<BookAuthorGenreDto> Books { get; set; }
+        public List<BookAuthorDto> Books { get; set; }
     }
 }

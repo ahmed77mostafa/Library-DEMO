@@ -67,7 +67,7 @@ namespace Library_DEMO.Repositories.Implementations
                 .Select(i => new GenreDto
                 {
                     Name = i.Name,
-                    Books = i.Books.Select(i => new BookAuthorGenreDto
+                    Books = i.Books.Select(i => new BookAuthorDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,
@@ -87,7 +87,7 @@ namespace Library_DEMO.Repositories.Implementations
                 GenreDto genreDto = new GenreDto
                 {
                     Name = genre.Name,
-                    Books = genre.Books.Select(i => new BookAuthorGenreDto
+                    Books = genre.Books.Select(i => new BookAuthorDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,

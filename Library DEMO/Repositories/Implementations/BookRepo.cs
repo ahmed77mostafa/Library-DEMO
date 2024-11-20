@@ -19,7 +19,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context = context;
         }
 
-        public void AddBook(BookAuthorGenreDto bookDto)
+        public void AddBook(BookDto bookDto)
         {
             Book book = new Book
             {
@@ -30,7 +30,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public void AddBookAuthor(BookDto bookDto/*, string name*/)
+        public void AddBookAuthor(BookAuthorGenreDto bookDto/*, string name*/)
         {
             //var result = _context.Genres.FirstOrDefault(i => i.Name == name);
             //if (result != null)
@@ -97,7 +97,7 @@ namespace Library_DEMO.Repositories.Implementations
             }
         }
 
-        public BookDto GetBookById(int id)
+        public BookAuthorGenreDto GetBookById(int id)
         {
             var book = _context.Books
                 .Include(i => i.Authors)
@@ -109,7 +109,7 @@ namespace Library_DEMO.Repositories.Implementations
 
             if(book != null)
             {
-                BookDto bookDto = new BookDto
+                BookAuthorGenreDto bookDto = new BookAuthorGenreDto
                 {
                     Title = book.Title,
                     PublishedDate = book.PublishedDate,
@@ -138,7 +138,7 @@ namespace Library_DEMO.Repositories.Implementations
             return null;
         }
 
-        public List<BookDto> GetBooks()
+        public List<BookAuthorGenreDto> GetBooks()
         {
             var result = _context.Books
                 .Include(i => i.Authors)
@@ -146,7 +146,7 @@ namespace Library_DEMO.Repositories.Implementations
                 .Include(i => i.Authors)
                 .ThenInclude(a => a.IdentityCard)
                 .Include(g => g.Genres)
-                .Select(i => new BookDto
+                .Select(i => new BookAuthorGenreDto
                 {
                     Title = i.Title,
                     PublishedDate = i.PublishedDate,
@@ -173,7 +173,7 @@ namespace Library_DEMO.Repositories.Implementations
             return result;
         }
 
-        public void UpdateBook(int bookId, BookDto bookDto)
+        public void UpdateBook(int bookId, BookAuthorGenreDto bookDto)
         {
             var book = _context.Books
                 .Include(i => i.Authors)

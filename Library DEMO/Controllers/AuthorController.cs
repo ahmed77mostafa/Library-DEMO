@@ -16,13 +16,13 @@ namespace Library_DEMO.Controllers
             _authorRepo = authorRepo;
         }
         [HttpPost("Author")]
-        public IActionResult AddAuthor(AuthorBookCreditCardDto authorDto)
+        public IActionResult AddAuthor(AuthorDto authorDto)
         {
             _authorRepo.AddAuthor(authorDto);
             return Ok();
         }
         [HttpPost("Author-Book")]
-        public IActionResult AddAuthorBook([FromBody] AuthorDto authorDto)
+        public IActionResult AddAuthorBook([FromBody] AuthorCreditIdentityDto authorDto)
         {
             _authorRepo.AddAuthorBook(authorDto);
             return Ok();
@@ -46,7 +46,7 @@ namespace Library_DEMO.Controllers
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public IActionResult PutAuthorBook(int id, [FromBody] AuthorDto authorDto)
+        public IActionResult PutAuthorBook(int id, [FromBody] AuthorCreditIdentityDto authorDto)
         {
             _authorRepo.UpdateAuthorBook(id, authorDto);
             return Ok();
