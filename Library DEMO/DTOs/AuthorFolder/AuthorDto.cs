@@ -1,9 +1,4 @@
-﻿using Library_DEMO.DTOs.BookFolder;
-using Library_DEMO.DTOs.CreditCardFolder;
-using Library_DEMO.DTOs.IdentityCardFolder;
-using Library_DEMO.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Library_DEMO.DTOs.AuthorFolder
 {
