@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Library_DEMO.DTOs.AuthorFolder
 {
-    public class AuthorBookCreditCardDto
+    public class AuthorCreditIdentity
     {
         public string Name { get; set; }
         [DataType(DataType.PhoneNumber)]

@@ -1,9 +1,6 @@
 ﻿using Library_DEMO.Data;
 using Library_DEMO.DTOs.AuthorFolder;
 using Library_DEMO.DTOs.BookFolder;
-using Library_DEMO.DTOs.CreditCardFolder;
-using Library_DEMO.DTOs.GenreFolder;
-using Library_DEMO.DTOs.IdentityCardFolder;
 using Library_DEMO.Models;
 using Library_DEMO.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +17,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context = context;
         }
 
-        public void AddAuthor(AuthorBookCreditCardDto authorDto)
+        public void AddAuthor(AuthorBookCreditIdentityDto authorDto)
         {
             Author author = new Author
             {
@@ -32,7 +29,7 @@ namespace Library_DEMO.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public void AddAuthorBook(AuthorDto authorDto)
+        public void AddAuthorBook(AuthorBookCreditIdentityDto authorDto)
         {
             Author author = new Author
             {
@@ -43,20 +40,17 @@ namespace Library_DEMO.Repositories.Implementations
                 {
                     Title = i.Title,
                     PublishedDate = i.PublishedDate,
-                    Genres = i.Genres.Select(i => new Genre
-                    {
-                        Name = i.Name
-                    }).ToList()
                 }).ToList(),
                 CreditCards = authorDto.CreditCards.Select(i => new CreditCard
                 {
-                    Name= i.Name,
-                    Type = i.Type,
+                    Name = i.Name,
+                    Type = i.Type
                 }).ToList(),
                 IdentityCard = new IdentityCard
                 {
-                    ExpireDate = authorDto.IdentityCard.ExpireDate,
+                   ExpireDate = authorDto.IdentityCard.ExpireDate
                 }
+                
             };
             _context.Authors.Add(author);
             _context.SaveChanges();
@@ -84,45 +78,24 @@ namespace Library_DEMO.Repositories.Implementations
         {
             var result = _context.Authors
                 .Include(b => b.Books)
-                .ThenInclude(g => g.Genres)
-                .Include(c => c.CreditCards)
-                .Include(id => id.IdentityCard)
                 .Select(i => new AuthorDto
                 {
                     Name = i.Name,
                     Email = i.Email,
                     PhoneNumber = i.PhoneNumber,
-                    Books = i.Books.Select(i => new BookAuthorGenreDto
+                    Books = i.Books.Select(i => new AuthorBookCreditIdentityDto
                     {
                         Title = i.Title,
                         PublishedDate = i.PublishedDate,
-                        Genres = i.Genres.Select(i => new GenreBookDto
-                        {
-                            Name = i.Name
-                        }).ToList()
-                    }).ToList(),
-                    CreditCards = i.CreditCards.Select(cc => new CreditCardAuthorDto
-                    {
-                        Name = cc.Name,
-                        Type = cc.Type 
-                    }).ToList(),
-                    IdentityCard = new IdentityCardDto
-                    {
-                        ExpireDate = i.IdentityCard.ExpireDate,
-                    } 
+                    }).ToList()
                 }).ToList();
-            if (result != null)
-                return result;
-            return null;
+            return result;
         }
 
         public AuthorDto GetAuthorBooksId(int id)
         {
             var author = _context.Authors
                 .Include(i => i.Books)
-                .ThenInclude(i => i.Genres)
-                .Include(i => i.CreditCards)
-                .Include(i => i.IdentityCard)
                 .FirstOrDefault(i => i.Id == id);
 
             if(author != null)
@@ -132,24 +105,11 @@ namespace Library_DEMO.Repositories.Implementations
                     Name = author.Name,
                     Email = author.Email,
                     PhoneNumber = author.PhoneNumber,
-                    Books = author.Books.Select(i => new BookAuthorGenreDto
+                    Books = author.Books.Select(i => new AuthorBookCreditIdentityDto
                     {
                         Title = i.Title,
-                        PublishedDate = i.PublishedDate,
-                        Genres = i.Genres.Select(i => new GenreBookDto
-                        {
-                            Name = i.Name
-                        }).ToList(),
-                    }).ToList(),
-                    CreditCards = author.CreditCards.Select(cc => new CreditCardAuthorDto
-                    {
-                        Name = cc.Name,
-                        Type = cc.Type 
-                    }).ToList(),
-                    IdentityCard =  new IdentityCardDto
-                    {
-                        ExpireDate = author.IdentityCard.ExpireDate,
-                    }
+                        PublishedDate = i.PublishedDate
+                    }).ToList()
                 };
                 return authorDto;
             }
@@ -160,9 +120,6 @@ namespace Library_DEMO.Repositories.Implementations
         {
             var author = _context.Authors
                 .Include(b => b.Books)
-                .ThenInclude(g => g.Genres)
-                .Include(c => c.CreditCards)
-                .Include(i => i.IdentityCard)
                 .FirstOrDefault(i => i.Id == authorId);
 
             if(author != null)
@@ -173,21 +130,8 @@ namespace Library_DEMO.Repositories.Implementations
                 author.Books = authorDto.Books.Select(i => new Book
                 {
                     Title = i.Title,
-                    PublishedDate = i.PublishedDate,
-                    Genres = i.Genres.Select(i => new Genre
-                    {
-                        Name = i.Name,
-                    }).ToList()
+                    PublishedDate = i.PublishedDate
                 }).ToList();
-                author.CreditCards = authorDto.CreditCards.Select(i => new CreditCard
-                {
-                    Name = i.Name,
-                    Type = i.Type,
-                }).ToList();
-                author.IdentityCard = new IdentityCard
-                {
-                    ExpireDate = authorDto.IdentityCard.ExpireDate,
-                };
 
                 _context.Authors.Update(author);
                 _context.SaveChanges();
